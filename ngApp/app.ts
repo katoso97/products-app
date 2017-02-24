@@ -19,6 +19,12 @@ namespace productsapp {
                 controller: productsapp.Controllers.AboutController,
                 controllerAs: 'controller'
             })
+            .state('edit', {
+              url:'/edit/:id',
+              templateUrl:'ngApp/views/edit.html',
+              controller: productsapp.Controllers.EditController,
+              controllerAs:'controller'
+            })
             .state('notFound', {
                 url: '/notFound',
                 templateUrl: '/ngApp/views/notFound.html'
@@ -31,6 +37,6 @@ namespace productsapp {
         $locationProvider.html5Mode(true);
     });
 
-    
+
 
 }

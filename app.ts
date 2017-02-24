@@ -8,6 +8,17 @@ import * as ejs from 'ejs';
 
 import routes from './routes/index';
 import users from './routes/users';
+import Database from './db';
+import products from './api/products';
+Database.connect().then(() => {
+  Database.db.dropDatabase().then(() => {
+    Database.db.collection('products').insert([
+      {name: 'Oranges', price: 9.33},
+      {name: 'Milk', price: 2.11},
+      {name: 'Cheese', price: 4.55}
+    ]);
+  });
+})
 
 let app = express();
 
@@ -26,8 +37,10 @@ app.use('/bower_components', express.static(path.join(__dirname, 'bower_componen
 app.use('/ngApp', express.static(path.join(__dirname, 'ngApp')));
 app.use('/api', express.static(path.join(__dirname, 'api')));
 
+
 app.use('/', routes);
 app.use('/users', users);
+app.use('/api/products', products);
 
 
 // redirect 404 to home for the sake of AngularJS client-side routes
